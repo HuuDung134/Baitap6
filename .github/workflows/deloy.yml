@@ -23,7 +23,7 @@ jobs:
       - name: 3. Build và Push Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./frontend  # Trỏ vào thư mục chứa code và Dockerfile
+          file: ./frontend/Dockerfile # Chỉ định chính xác file Dockerfile
           push: true
-          # Thay 'ten-ung-dung-cua-ban' bằng tên repository bạn muốn tạo trên Docker Hub
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/baitap6-frontend:latest
