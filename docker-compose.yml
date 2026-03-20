@@ -1,0 +1,42 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_metro
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+  backend:
+    build: ./backend
+    container_name: backend_metro
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://mongodb:27017/baitap6_metro
+      - JWT_ACCESS_SECRET=change-me-access
+      - JWT_REFRESH_SECRET=change-me-refresh
+      - ACCESS_TOKEN_TTL=15m
+      - REFRESH_TOKEN_TTL=7d
+      - CLIENT_ORIGIN=http://localhost:80
+    depends_on:
+      - mongodb
+    restart: always
+
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        - VITE_API_BASE_URL=http://localhost:3000
+        - VITE_SOCKET_URL=http://localhost:3000
+    container_name: frontend_metro
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
