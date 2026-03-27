@@ -18,7 +18,7 @@ export default function Login() {
   return (
     <div className="mx-auto max-w-md">
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div className="text-xl font-semibold text-slate-900">Login</div>
+        <div className="text-xl font-semibold text-slate-900">NguyenHuuTienDung-2280600400</div>
         <div className="mt-1 text-sm text-slate-600">Sign in to continue.</div>
 
         {error ? <Alert className="mt-4" tone="error" title="Login failed">{error}</Alert> : null}
